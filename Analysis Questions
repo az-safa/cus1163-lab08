@@ -1,0 +1,9 @@
+Fragmentation Analysis: In the basic example, what is the external fragmentation percentage? Explain why free memory becomes fragmented.
+
+First-Fit Efficiency: Why does P4 use the block left by P1 even though it's larger than needed? What happens to the unused portion?
+
+Allocation Patterns: Compare workload1.txt (many small processes) with workload2.txt (few large processes). Which creates more fragmentation? Why?
+
+Failed Allocations: Create a scenario where an allocation fails even though the total free memory is larger than the request. Why does this happen?
+
+Algorithm Comparison: How might Best-Fit allocation handle the basic example differently than First-Fit? Would it reduce fragmentation?
