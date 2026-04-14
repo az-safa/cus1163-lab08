@@ -1,9 +1,39 @@
-Fragmentation Analysis: In the basic example, what is the external fragmentation percentage? Explain why free memory becomes fragmented.
+Fragmentation Analysis: In the basic example, what is the external fragmentation percentage? 
+Explain why free memory becomes fragmented.
+      External fragmentation is 24.41%
+      It fragments because processes require different amounts of memory and run for different 
+      durations. When a process finishes and releases its memory, it leaves a "hole". If the
+      next requesting process doesn't fit the hole perfectly, a smaller leftover hole is created.
+      Over time, memory breaks down into many isolated free blocks.
 
-First-Fit Efficiency: Why does P4 use the block left by P1 even though it's larger than needed? What happens to the unused portion?
 
-Allocation Patterns: Compare workload1.txt (many small processes) with workload2.txt (few large processes). Which creates more fragmentation? Why?
+First-Fit Efficiency: Why does P4 use the block left by P1 even though it's larger than needed? 
+What happens to the unused portion?
+      First-Fit scans memory starting from address 0 and stops at the very first block that 
+      is greater than or equal to the requested size. It doesn't care if there's a better fit 
+      further down.
+      The unused 50 KB portion is split off into a brand-new free block. This small block 
+      contributes to fragmentation since it is often too small to host future processes.
 
-Failed Allocations: Create a scenario where an allocation fails even though the total free memory is larger than the request. Why does this happen?
+Allocation Patterns: Compare workload1.txt (many small processes) with workload2.txt (few large processes). 
+Which creates more fragmentation? Why?
+      workload1.txt will create significantly more fragmentation.
+      Constantly carving up memory into small chunks and releasing them irregularly turns the memory
+      space into a patchwork of tiny allocated blocks separated by tiny free blocks (the "swiss cheese" 
+      effect). Large, infrequent processes tend to keep memory clustered in larger, contiguous chunks.
 
-Algorithm Comparison: How might Best-Fit allocation handle the basic example differently than First-Fit? Would it reduce fragmentation?
+Failed Allocations: Create a scenario where an allocation fails even though the total free memory is larger than the request. 
+Why does this happen?
+      Total memory is 1000 KB. Processes A, B, C, D, and E (200 KB each) are allocated back-to-back. 
+      Processes B and D finish, releasing their blocks. You now have 400 KB of total free memory.
+      If Process F requests 300 KB, the allocation will fail. Even though there is 400 KB of total 
+      free memory, it is split into two non-contiguous 200 KB blocks. Memory allocation requires a 
+      single contiguous block of space.
+
+Algorithm Comparison: How might Best-Fit allocation handle the basic example differently than First-Fit? 
+Would it reduce fragmentation?
+      Instead of grabbing the first available block, Best-Fit scans the entire memory array to find 
+      the smallest possible free block that is >= the requested size.
+      In the short term, it would reduce fragmentation. Best-Fit preserves larger contiguous blocks of memory by utilizing 
+      tighter spaces first. However, long term, Best-Fit can actually generate a high volume of 
+      extremely tiny leftover fragments, meaning it's not a silver bullet for external fragmentation.
